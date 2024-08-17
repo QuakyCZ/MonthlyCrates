@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import net.splodgebox.monthlycrates.utils.ItemStackBuilder;
 import net.splodgebox.monthlycrates.utils.ItemUtils;
 import net.splodgebox.monthlycrates.utils.Pair;
+import net.splodgebox.monthlycrates.utils.SkullCreator;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class Crate {
     private final XMaterial material;
     private final List<String> nbt;
     private final int customModelData;
+    private final String data;
 
     private final List<XMaterial> colors;
     private final int shuffleTime;
@@ -37,7 +39,16 @@ public class Crate {
     private final List<Pair<Double, Reward>> rewards;
 
     public ItemStack create(String player) {
-        ItemStack itemStack =  new ItemStackBuilder(material.parseItem())
+        ItemStack itemStack;
+
+        if (material == XMaterial.PLAYER_HEAD && data != null && !data.isEmpty()) {
+            itemStack = SkullCreator.itemFromBase64(data);
+        } else {
+            itemStack = material.parseItem();
+        }
+
+
+        itemStack =  new ItemStackBuilder(itemStack)
                 .setName(name)
                 .setLore(lore)
                 .nbt()
