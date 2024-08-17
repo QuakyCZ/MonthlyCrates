@@ -57,6 +57,7 @@ public class CrateController {
                             .orElse(XMaterial.CHEST),
                     config.getStringList(path + "nbt"),
                     config.getInt(path + "customModelData", 0),
+                    config.getString(path + "data", ""),
                     colors,
                     config.getInt(path + "animation.shuffle-time"),
                     config.getBoolean(path + "animation.duplicate-rewards"),
@@ -92,7 +93,8 @@ public class CrateController {
                     config.getStringList(path + "command"),
                     config.getBoolean(path + "give-item"),
                     config.getStringList(path + "nbt"),
-                    config.getInt(path + "customModelData", 0)
+                    config.getInt(path + "customModelData", 0),
+                    config.getString(path + "data", "")
             );
             rewards.add(new Pair<>(reward.getChance(), reward));
         }

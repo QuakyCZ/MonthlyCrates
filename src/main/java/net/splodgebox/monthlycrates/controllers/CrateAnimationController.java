@@ -13,6 +13,7 @@ import net.splodgebox.monthlycrates.utils.*;
 import net.splodgebox.monthlycrates.utils.gui.Gui;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
@@ -110,7 +111,12 @@ public class CrateAnimationController {
             @Override
             public void run() {
                 Reward reward = rewardCollection.next();
-                inventory.setItem(slot, reward.create(), (player, inventoryClickEvent) -> {});
+                ItemStack itemStack = new ItemStackBuilder(reward.create())
+                        .setAmount(reward.getAmount())
+                        .build();
+
+                inventory.setItem(slot, itemStack, (player, inventoryClickEvent) -> {});
+
 
                 if (i < 18) {
                     if ((i % 2) == 1) {
