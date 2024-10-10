@@ -58,11 +58,11 @@ public final class MonthlyCrates extends JavaPlugin {
             commands = getConfig().getStringList("Command-Aliases");
         }
 
-        String arg = "";
-        for (String command : commands) arg = arg + command + "|";
-        arg = arg.substring(0, arg.length()-1);
+        StringBuilder args = new StringBuilder();
+        for (String command : commands) args.append(command).append("|");
+        args = new StringBuilder(args.substring(0, args.length() - 1));
 
-        commandManager.getCommandReplacements().addReplacements("alias", arg);
+        commandManager.getCommandReplacements().addReplacements("alias", args.toString());
         commandManager.registerCommand(new HelpCommand());
         commandManager.registerCommand(new ReloadCommand(this));
         commandManager.registerCommand(new GiveCrateCommand(this));

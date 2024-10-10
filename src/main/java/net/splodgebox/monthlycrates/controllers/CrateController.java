@@ -23,12 +23,10 @@ import java.util.stream.Collectors;
 
 public class CrateController {
 
-    @Getter
-    private final HashMap<String, Crate> crates;
     private final FileManager cratesFile;
 
-    @Getter
-    private HashMap<UUID, Gui> activeCrates;
+    @Getter private final HashMap<String, Crate> crates;
+    @Getter private final HashMap<UUID, Gui> activeCrates;
 
     public CrateController(MonthlyCrates plugin) {
         crates = Maps.newHashMap();

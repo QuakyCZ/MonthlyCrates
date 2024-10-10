@@ -60,13 +60,4 @@ public class CrateListeners implements Listener {
         }
     }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        // Harmless check, just for myself to see if someone is using my plugin
-        if (player.getName().equalsIgnoreCase("Splodgebox")) {
-            Chat.msg(player, "&a&l(!) &aServer is using MonthlyCrates");
-        }
-    }
-
 }

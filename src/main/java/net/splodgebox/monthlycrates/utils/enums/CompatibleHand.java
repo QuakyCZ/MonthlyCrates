@@ -11,7 +11,7 @@ public enum CompatibleHand {
 
     MAIN_HAND, OFF_HAND;
 
-    private static Map<String, Method> methodCache = new HashMap<>();
+    private static final Map<String, Method> methodCache = new HashMap<>();
 
     public static CompatibleHand getHand(Object event) {
         try {

@@ -1,7 +1,7 @@
 package net.splodgebox.monthlycrates.data;
 
 import com.cryptomorin.xseries.XMaterial;
-import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBT;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.splodgebox.monthlycrates.utils.ItemStackBuilder;
@@ -44,16 +44,15 @@ public class Reward {
                 .setLore(lore)
                 .addEnchants(enchants);
 
-        if (customModelData > 0) {
-            itemStack = ItemUtils.setCustomModelData(itemStackBuilder.build(), customModelData);
-        } else {
-            itemStack = itemStackBuilder.build();
-        }
+        itemStack = customModelData > 0 ? ItemUtils.setCustomModelData(itemStackBuilder.build(), customModelData) :
+                itemStackBuilder.build();
 
         if (!nbt.isEmpty()) {
-            NBTItem nbtItem = new NBTItem(itemStack);
-            nbt.stream().map(tag -> tag.split(":")).forEach(index -> nbtItem.setString(index[0], index[1]));
-            itemStack = nbtItem.getItem();
+            NBT.modify(itemStack, readWriteItemNBT -> {
+                nbt.stream()
+                        .map(tag -> tag.split(":"))
+                        .forEach(index -> readWriteItemNBT.setString(index[0], index[1]));
+            });
         }
 
         return itemStack;

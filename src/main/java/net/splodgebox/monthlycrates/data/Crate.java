@@ -2,7 +2,7 @@ package net.splodgebox.monthlycrates.data;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableMap;
-import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBT;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.splodgebox.monthlycrates.utils.ItemStackBuilder;
@@ -51,15 +51,16 @@ public class Crate {
         itemStack =  new ItemStackBuilder(itemStack)
                 .setName(name)
                 .setLore(lore)
-                .nbt()
-                .set("MonthlyCrates", id)
-                .set("NoStack", UUID.randomUUID().toString())
+                .setNBT("MonthlyCrates", id)
+                .setNBT("NoStack", UUID.randomUUID().toString())
                 .build(ImmutableMap.of("%player%", player));
 
         if (!nbt.isEmpty()) {
-            NBTItem nbtItem = new NBTItem(itemStack);
-            nbt.stream().map(tag -> tag.split(":")).forEach(index -> nbtItem.setString(index[0], index[1]));
-            itemStack = nbtItem.getItem();
+            NBT.modify(itemStack, readWriteItemNBT -> {
+                nbt.stream()
+                        .map(tag -> tag.split(":"))
+                        .forEach(index -> readWriteItemNBT.setString(index[0], index[1]));
+            });
         }
 
         if (customModelData > 0) {

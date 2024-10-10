@@ -1,7 +1,7 @@
 package net.splodgebox.monthlycrates.utils;
 
 import com.google.common.collect.Lists;
-import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -93,12 +93,15 @@ public class ItemStackBuilder {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         itemStack.setItemMeta(meta);
-        itemStack.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+        itemStack.addUnsafeEnchantment(Enchantment.EFFICIENCY, 1);
         return this;
     }
 
-    public Nbt nbt() {
-        return new Nbt(this);
+    public ItemStackBuilder setNBT(String key, String value) {
+        NBT.modify(itemStack, readWriteItemNBT -> {
+            readWriteItemNBT.setString(key, value);
+        });
+        return this;
     }
 
     public ItemStack build() {
@@ -107,50 +110,6 @@ public class ItemStackBuilder {
 
     public ItemStack build(Map<String, String> placeholders) {
         return replaceData(itemStack, placeholders);
-    }
-
-    public class Nbt {
-
-        protected final ItemStackBuilder builder;
-        protected NBTItem nbtItem;
-
-        public Nbt(ItemStackBuilder builder) {
-            this.builder = builder;
-            this.nbtItem = new NBTItem(builder.itemStack);
-        }
-
-        public Nbt set(String key, String value) {
-            nbtItem.setString(key, value);
-            return this;
-        }
-
-        public Nbt set(String key, Integer intVal) {
-            nbtItem.setInteger(key, intVal);
-            return this;
-        }
-
-        public Nbt set(String key, Double intVal) {
-            nbtItem.setDouble(key, intVal);
-            return this;
-        }
-
-        public Nbt set(String key, Boolean bool) {
-            nbtItem.setBoolean(key, bool);
-            return this;
-        }
-
-        public ItemStack build() {
-            return nbtItem.getItem();
-        }
-
-        public ItemStack build(Map<String, String> placeholders) {
-            return replaceData(nbtItem.getItem(), placeholders);
-        }
-
-        public ItemStackBuilder builder() {
-            return builder;
-        }
-
     }
 
     private ItemStack replaceData(ItemStack itemStack, Map<String, String> replaceMap) {

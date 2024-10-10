@@ -33,3 +33,4 @@ public class AddRewardCrateCommand extends BaseCommand {
     }
 
 }
+

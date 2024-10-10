@@ -1,6 +1,6 @@
 package net.splodgebox.monthlycrates.utils;
 
-import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBT;
 import net.splodgebox.monthlycrates.utils.enums.CompatibleHand;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,13 +16,12 @@ public class ItemUtils {
     public static boolean hasNBT(ItemStack itemStack, String tag) {
         if (!isValid(itemStack)) return false;
 
-        NBTItem nbtItem = new NBTItem(itemStack);
-        return nbtItem.hasKey(tag);
+        return NBT.get(itemStack, nbt -> (boolean) nbt.hasTag(tag));
     }
 
     public static String getNBTString(ItemStack itemStack, String tag) {
-        NBTItem nbtItem = new NBTItem(itemStack);
-        return nbtItem.getString(tag);
+        if (!isValid(itemStack)) return "";
+        return NBT.get(itemStack, nbt -> (String) nbt.getString(tag));
     }
 
     public static ItemStack setCustomModelData(ItemStack itemStack, int model) {
