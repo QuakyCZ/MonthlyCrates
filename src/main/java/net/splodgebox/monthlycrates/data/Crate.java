@@ -2,7 +2,7 @@ package net.splodgebox.monthlycrates.data;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableMap;
-import de.tr7zw.changeme.nbtapi.NBT;
+import de.tr7zw.nbtapi.NBT;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.splodgebox.monthlycrates.utils.ItemStackBuilder;

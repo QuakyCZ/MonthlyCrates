@@ -1,8 +1,6 @@
 package net.splodgebox.monthlycrates.utils;
-
-import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
+import de.tr7zw.nbtapi.utils.MinecraftVersion;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

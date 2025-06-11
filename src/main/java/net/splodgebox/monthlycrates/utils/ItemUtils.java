@@ -1,6 +1,6 @@
 package net.splodgebox.monthlycrates.utils;
 
-import de.tr7zw.changeme.nbtapi.NBT;
+import de.tr7zw.nbtapi.NBT;
 import net.splodgebox.monthlycrates.utils.enums.CompatibleHand;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
